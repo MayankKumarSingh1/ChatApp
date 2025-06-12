@@ -15,6 +15,13 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 const server = http.createServer(app);
 app.use(express.json());
+
+app.get("/", (req,res)=>{
+  res.send("Connected to backend");
+});
+
+
+
 const io = new Server(server, {
   cors: {
     origin: "http://localhost:5173",
