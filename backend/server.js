@@ -10,6 +10,7 @@ const userRoute = require('./router/user.routes');
 
 
 connectToDB();
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 const server = http.createServer(app);
@@ -51,6 +52,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api', userRoute);
 
-server.listen(5000, () => {
-  console.log("Server is running on Port 5000");
+server.listen(PORT, () => {
+  console.log(`Server is running on Port ${[PORT]}`);
 });
