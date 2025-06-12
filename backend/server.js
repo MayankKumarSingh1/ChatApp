@@ -14,15 +14,30 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 const server = http.createServer(app);
 
-const allowedOrigins =
-  "https://chat-1zeijq5qj-mayankkumarsingh1s-projects.vercel.app"
+const allowedOrigins =[
+  "https://chat-1zeijq5qj-mayankkumarsingh1s-projects.vercel.app",
+   "https://chat-bce5j6qyo-mayankkumarsingh1s-projects.vercel.app"]
 ;
 app.use(cors({
-  origin: allowedOrigins,
+  origin: function (origin, callback) {
+    const allowed = [
+      "https://chatapp-production-d515.up.railway.app", // your backend
+    ];
+    if (
+      !origin ||
+      allowed.includes(origin) ||
+      origin.endsWith("vercel.app")
+    ) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
 
 app.use(express.json());
 app.use(cookieParser());
