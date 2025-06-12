@@ -5,28 +5,37 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 const connectToDB = require('./config/db');
-const cookieParser= require('cookie-parser');
+const cookieParser = require('cookie-parser');
 const userRoute = require('./router/user.routes');
-
 
 connectToDB();
 const PORT = process.env.PORT || 8080;
 
 const app = express();
 const server = http.createServer(app);
-app.use(express.json());
 
-app.get("/", (req,res)=>{
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://chat-1zeijq5qj-mayankkumarsingh1s-projects.vercel.app"
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
+app.use(express.json());
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
+
+app.get("/", (req, res) => {
   res.send("Connected to backend");
 });
 
-
-
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
-    credentials:true,
+    credentials: true
   }
 });
 
@@ -40,10 +49,10 @@ io.on('connection', (socket) => {
   socket.on("send_message", ({ room, message, sender }) => {
     const msgPayload = {
       sender,
-      from:sender,
-      to:room.split("-").find(id=> id!==sender),
+      from: sender,
+      to: room.split("-").find(id => id !== sender),
       text: message,
-      time: new Date().toISOString(),
+      time: new Date().toISOString()
     };
     socket.to(room).emit("receive_message", msgPayload);
   });
@@ -53,12 +62,8 @@ io.on('connection', (socket) => {
   });
 });
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
-app.use(cookieParser());
-app.use(express.urlencoded({ extended: true }));
-
 app.use('/api', userRoute);
 
 server.listen(PORT, () => {
-  console.log(`Server is running on Port ${[PORT]}`);
+  console.log(`Server is running on Port ${PORT}`);
 });
