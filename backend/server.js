@@ -10,7 +10,7 @@ const userRoute = require('./router/user.routes');
 
 
 connectToDB();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
 const app = express();
 const server = http.createServer(app);
