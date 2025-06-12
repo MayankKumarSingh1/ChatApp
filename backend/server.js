@@ -15,14 +15,15 @@ const app = express();
 const server = http.createServer(app);
 
 const allowedOrigins = [
-  "http://localhost:5173",
   "https://chat-1zeijq5qj-mayankkumarsingh1s-projects.vercel.app"
 ];
-
 app.use(cors({
   origin: allowedOrigins,
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
@@ -30,6 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.send("Connected to backend");
 });
+
 
 const io = new Server(server, {
   cors: {
@@ -63,6 +65,14 @@ io.on('connection', (socket) => {
 });
 
 app.use('/api', userRoute);
+
+
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
+});
+
+
 
 server.listen(PORT, () => {
   console.log(`Server is running on Port ${PORT}`);
