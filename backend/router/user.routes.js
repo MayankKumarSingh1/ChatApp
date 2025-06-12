@@ -50,6 +50,10 @@ router.post('/register',
   }
 );
 
+route.get('/', (req, res) => {
+  res.send('Chat App Backend is Running 🚀');
+});
+
 
 router.post('/login',
   body('username').trim().isLength({ min: 5 }),
