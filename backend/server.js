@@ -14,9 +14,9 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 const server = http.createServer(app);
 
-const allowedOrigins = [
+const allowedOrigins =
   "https://chat-1zeijq5qj-mayankkumarsingh1s-projects.vercel.app"
-];
+;
 app.use(cors({
   origin: allowedOrigins,
   credentials: true,
