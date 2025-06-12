@@ -4,7 +4,7 @@ import { io } from 'socket.io-client';
 import { jwtDecode } from 'jwt-decode';
 import EmojiPicker from 'emoji-picker-react';
 import {Link} from 'react-router-dom';
-const socket = io(import.meta.env.VITE_API_URL, {
+const socket = io(import.meta.env.VITE_BACKEND_URL, {
   withCredentials: true,
 });
 
@@ -45,7 +45,7 @@ function Chat({ activeFriend: propActiveFriend }) {
     setInput('');
 
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/ask`, {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/ask`, {
         message: input,
       });
 
@@ -59,7 +59,7 @@ function Chat({ activeFriend: propActiveFriend }) {
     if (!newFriendUsername.trim()) return;
     try {
       await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/friendrequest/send`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/friendrequest/send`,
         { toUsername: newFriendUsername.trim() },
         {
           headers: {
@@ -79,9 +79,9 @@ function Chat({ activeFriend: propActiveFriend }) {
   const fetchFriendData = async () => {
     try {
       const [friendsRes, sentRes, receivedRes] = await Promise.all([
-        axios.get(`${import.meta.env.VITE_API_URL}/api/friends/${userId}`),
-        axios.get(`${import.meta.env.VITE_API_URL}/api/friendrequest/sent/${userId}`),
-        axios.get(`${import.meta.env.VITE_API_URL}/api/friendrequest/received/${userId}`)
+        axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/friends/${userId}`),
+        axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/friendrequest/sent/${userId}`),
+        axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/friendrequest/received/${userId}`)
       ]);
       setFriends(friendsRes.data);
       setSentRequests(sentRes.data);
@@ -100,7 +100,7 @@ function Chat({ activeFriend: propActiveFriend }) {
     const roomId = [userId, activeFriend].sort().join('-');
     socket.emit('join_room', roomId);
 
-    axios.get(`${import.meta.env.VITE_API_URL}/api/chat/${userId}/${activeFriend}`)
+    axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/chat/${userId}/${activeFriend}`)
       .then(res => {
         const msgs = Array.isArray(res.data) ? res.data : res.data.messages;
         setMessages(msgs || []);
@@ -133,7 +133,7 @@ function Chat({ activeFriend: propActiveFriend }) {
     setInput("");
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/chat/${userId}/${activeFriend}`,
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/chat/${userId}/${activeFriend}`,
         { text: input },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -144,7 +144,7 @@ function Chat({ activeFriend: propActiveFriend }) {
 
   const acceptRequest = async (fromUserId) => {
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/friendrequest/accept`,
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/friendrequest/accept`,
         { from: fromUserId },
         {
           headers: {
@@ -160,7 +160,7 @@ function Chat({ activeFriend: propActiveFriend }) {
 
   const rejectRequest = async (fromUserId) => {
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/friendrequest/reject`,
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/friendrequest/reject`,
         { from: fromUserId },
         {
           headers: {
@@ -176,7 +176,7 @@ function Chat({ activeFriend: propActiveFriend }) {
 
   const deleteMessage = async (messageId) => {
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/api/chat/${messageId}`, {
+      await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/chat/${messageId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       setMessages(prev => prev.filter(msg => msg._id !== messageId));
