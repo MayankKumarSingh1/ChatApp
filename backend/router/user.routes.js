@@ -50,7 +50,7 @@ router.post('/register',
   }
 );
 
-route.get('/', (req, res) => {
+router.get('/', (req, res) => {
   res.send('Chat App Backend is Running 🚀');
 });
 
