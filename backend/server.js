@@ -16,7 +16,7 @@ const server = http.createServer(app);
 app.use(express.json());
 const io = new Server(server, {
   cors: {
-    origin: "https://chat-app-navy-phi.vercel.app",
+    origin: "http://localhost:5173",
     methods: ["GET", "POST"],
     credentials:true,
   }

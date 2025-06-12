@@ -50,6 +50,11 @@ router.post('/register',
   }
 );
 
+app.get('/', (req, res) => {
+  res.send('Chat App Backend is Running 🚀');
+});
+
+
 router.post('/login',
   body('username').trim().isLength({ min: 5 }),
   body('password').trim().isLength({ min: 8 }),
@@ -115,6 +120,7 @@ router.post('/friendrequest/accept', verifyToken, async (req, res) => {
     if (!toUser.friendRequests.some(id => id.toString() === from.toString())) {
       return res.status(400).json({ message: "No friend request from this user" });
     }
+
 
     // Add each other as friends if not already
     if (!fromUser.friends.some(id => id.toString() === toUser._id.toString())) {
