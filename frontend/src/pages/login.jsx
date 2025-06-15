@@ -13,11 +13,10 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const res = await loginUser(formData);
 
     if (res.success && res.token) {
-      localStorage.setItem("token",res.token);
+      localStorage.setItem("token", res.token);
       setMessage("Login Successful");
       navigate("/chat");
     } else {
@@ -26,62 +25,55 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-gray-200 dark:bg-gray-900 h-screen w-screen flex items-center justify-center">
-      <form onSubmit={handleSubmit} className="w-96">
-        <section className="bg-gray-50 dark:bg-gray-900">
-          <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto">
-            <div className="w-full bg-white rounded-lg shadow-md border-2 sm:max-w-md xl:p-0 dark:bg-gray-900">
-              <div className="p-6 space-y-4 sm:p-8">
-                <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                  Sign in to your account
-                </h1>
-                <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Username
-                  </label>
-                  <input
-                    type="text"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleChange}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                    placeholder="Enter your username"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                    placeholder="••••••••"
-                    required
-                  />
-                </div>
-                <div className="flex justify-center">
-                  <button
-                    type="submit"
-                    className="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-500 dark:hover:bg-blue-600"
-                  >
-                    Sign In
-                  </button>
-                </div>
-                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                  Don’t have an account?{' '}
-                  <a href="/register" className="font-medium text-blue-600 hover:underline dark:text-blue-400">
-                    Sign up
-                  </a>
-                </p>
-                {message && <p className="text-green-500 text-center">{message}</p>}
-              </div>
-            </div>
-          </div>
-        </section>
+    <div className="h-screen w-screen bg-gradient-to-br from-indigo-900 via-slate-800 to-blue-950 flex items-center justify-center px-4">
+      <form onSubmit={handleSubmit} className="bg-slate-900 border border-slate-700 text-white rounded-xl shadow-2xl p-8 w-full max-w-md">
+        <h2 className="text-3xl font-bold text-white text-center mb-6">Welcome Back</h2>
+
+        <div className="mb-4">
+          <label htmlFor="username" className="block mb-1 text-sm font-medium text-gray-300">Username</label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            value={formData.username}
+            onChange={handleChange}
+            placeholder="Enter your username"
+            className="bg-slate-800 border border-slate-600 text-white text-sm rounded-md block w-full p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            required
+          />
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="password" className="block mb-1 text-sm font-medium text-gray-300">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="••••••••"
+            className="bg-slate-800 border border-slate-600 text-white text-sm rounded-md block w-full p-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-indigo-700 hover:bg-indigo-800 text-white font-semibold py-2.5 rounded-md transition duration-300"
+        >
+          Sign In
+        </button>
+
+        {message && (
+          <p className="text-center mt-4 text-sm text-red-400">
+            {message}
+          </p>
+        )}
+
+        <p className="mt-4 text-center text-sm text-gray-400">
+          Don’t have an account?{" "}
+          <a href="/register" className="text-indigo-400 hover:underline font-medium">Sign up</a>
+        </p>
       </form>
     </div>
   );
