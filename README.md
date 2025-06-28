@@ -16,6 +16,8 @@ Technologies Used:
   EJS: Templating engine for rendering HTML pages.
   HTML/CSS: For structuring and styling the application.
 
+Link : https://chat-1zeijq5qj-mayankkumarsingh1s-projects.vercel.app/
+
 
 Installation
   To set up ChatApp locally, follow these steps:
