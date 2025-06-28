@@ -1,4 +1,4 @@
-ChatApp
+
 ChatApp is a real-time chat application that allows users to communicate seamlessly. Built with JavaScript, EJS, HTML, and CSS, this application provides a user-friendly interface and efficient messaging capabilities.
 
 Features:
