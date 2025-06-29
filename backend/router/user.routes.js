@@ -98,7 +98,6 @@ return res.status(400).json({ message: 'Already connected or request pending' })
   res.status(201).json({ message: "Friend request sent" });
 });
 
-// ACCEPT FRIEND REQUEST
 router.post('/friendrequest/accept', verifyToken, async (req, res) => {
   try {
     const { from } = req.body;
@@ -116,8 +115,6 @@ router.post('/friendrequest/accept', verifyToken, async (req, res) => {
       return res.status(400).json({ message: "No friend request from this user" });
     }
 
-
-    // Add each other as friends if not already
     if (!fromUser.friends.some(id => id.toString() === toUser._id.toString())) {
       fromUser.friends.push(toUser._id);
     }
@@ -125,13 +122,11 @@ router.post('/friendrequest/accept', verifyToken, async (req, res) => {
       toUser.friends.push(fromUser._id);
     }
 
-    // Remove the friend request entries
     fromUser.sentRequests = fromUser.sentRequests.filter(id => id.toString() !== toUser._id.toString());
     toUser.friendRequests = toUser.friendRequests.filter(id => id.toString() !== fromUser._id.toString());
 
     await Promise.all([fromUser.save(), toUser.save()]);
 
-    // Create a chat if it doesn't exist
     const existingChat = await Chat.findOne({ members: { $all: [from, to], $size: 2 } });
     if (!existingChat) await new Chat({ members: [from, to], messages: [] }).save();
 
@@ -142,10 +137,6 @@ router.post('/friendrequest/accept', verifyToken, async (req, res) => {
   }
 });
 
-
-
-
-// GET SENT REQUESTS
 router.get('/friendrequest/sent/:userId', async (req, res) => {
   const user = await User.findById(req.params.userId).populate('sentRequests', 'username');
   if (!user) return res.status(404).json({ message: "User not found" });
@@ -154,8 +145,6 @@ router.get('/friendrequest/sent/:userId', async (req, res) => {
   res.json(sent);
 });
 
-
-// GET RECEIVED REQUESTS
 router.get('/friendrequest/received/:userId', async (req, res) => {
   const user = await User.findById(req.params.userId).populate('friendRequests', 'username');
   if (!user) return res.status(404).json({ message: "User not found" });
@@ -178,12 +167,10 @@ router.post('/friendrequest/reject', verifyToken, async (req, res) => {
 
   if (!user || !requester) return res.status(404).json({ message: "User(s) not found" });
 
-  // Check if request exists
   if (!user.friendRequests.includes(requesterId)) {
     return res.status(400).json({ message: "No friend request found from this user" });
   }
 
-  // Remove from friendRequests and sentRequests
   user.friendRequests = user.friendRequests.filter(id => id.toString() !== requesterId);
   requester.sentRequests = requester.sentRequests.filter(id => id.toString() !== to);
 
@@ -192,8 +179,6 @@ router.post('/friendrequest/reject', verifyToken, async (req, res) => {
   res.json({ message: "Friend request rejected" });
 });
 
-
-// GET FRIENDS
 router.get('/friends/:userId', async (req, res) => {
   const user = await User.findById(req.params.userId).populate('friends', 'username');
   if (!user) return res.status(404).json({ message: "User not found" });
@@ -204,24 +189,20 @@ router.get('/chat/:userId/:friendId', async (req, res) => {
   const { userId, friendId } = req.params;
 
   try {
-    // Try finding the chat between the two users
     let chat = await Chat.findOne({ members: { $all: [userId, friendId], $size: 2 } });
 
-    // If no chat found, create a new one
     if (!chat) {
       chat = new Chat({ members: [userId, friendId], messages: [] });
       await chat.save();
     }
 
-    res.status(200).json(chat.messages);  // send messages array
+    res.status(200).json(chat.messages); 
   } catch (err) {
     console.error("Error fetching chat:", err);
     res.status(500).json({ message: "Server error" });
   }
 });
 
-
-// SEND CHAT MESSAGE
 router.post('/chat/:userId/:friendId', verifyToken, async (req, res) => {
 
   const { text } = req.body;
@@ -240,7 +221,6 @@ router.post('/chat/:userId/:friendId', verifyToken, async (req, res) => {
   res.status(200).json({ message: "Message sent" });
 });
 
-// DELETE /api/chat/:messageId
 router.delete('/chat/:messageId', verifyToken, async (req, res) => {
   const { messageId } = req.params;
   const userId = req.user.userId;
@@ -267,7 +247,6 @@ router.delete('/chat/:messageId', verifyToken, async (req, res) => {
   }
 });
 
-// Get user by ID (used in dashboard)
 router.get('/user/:id', verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.params.id).select("-password");

@@ -29,17 +29,14 @@ function Home() {
 
   return (
     <div className="relative min-h-screen text-white">
-      {/* Background image */}
       <img
         src="./ChatApp.webp"
         alt="Chat App"
         className="absolute inset-0 w-full h-full object-cover -z-10"
       />
 
-      {/* Dark overlay */}
       <div className="absolute inset-0 bg-black opacity-40 -z-10" />
 
-      {/* Header pinned to top */}
       <header className="w-full flex justify-between items-center px-8 py-6">
         <h1 className="text-2xl font-bold">ChatNet 💬</h1>
         <div className="flex space-x-6 text-lg">

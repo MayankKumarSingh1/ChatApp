@@ -148,7 +148,6 @@ function Chat({ activeFriend: propActiveFriend }) {
 
   return (
     <div className="h-screen flex flex-col bg-gradient-to-br from-white via-gray-100 to-indigo-50 font-sans">
-      {/* Header */}
       <header className="px-6 py-4 bg-white shadow-md flex items-center justify-between border-b">
         <h1 className="text-2xl font-bold text-indigo-600 tracking-tight">✨ ChatNet</h1>
         <button
@@ -163,7 +162,6 @@ function Chat({ activeFriend: propActiveFriend }) {
       </header>
 
       <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar */}
         <aside className="w-72 bg-white border-r p-4 flex flex-col justify-between shadow-inner">
           <div>
             <Link to="/home" className="text-indigo-600 hover:underline mb-4 block text-sm">← Back to Home</Link>
@@ -218,8 +216,6 @@ function Chat({ activeFriend: propActiveFriend }) {
             />
           </div>
         </aside>
-
-        {/* Chat Area */}
         <main className="flex-1 flex flex-col">
           <div className="flex-1 overflow-y-auto p-6 space-y-4">
             {activeFriend ? (
@@ -248,7 +244,6 @@ function Chat({ activeFriend: propActiveFriend }) {
             ) : <p className="text-center text-gray-500 mt-10">Select a friend to start chatting</p>}
           </div>
 
-          {/* Input Area */}
           {activeFriend && (
             <div className="p-4 bg-white border-t flex items-center gap-2 relative">
               <input

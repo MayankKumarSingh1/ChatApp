@@ -21,7 +21,7 @@ const allowedOrigins =[
 app.use(cors({
   origin: function (origin, callback) {
     const allowed = [
-      "https://chatapp-production-d515.up.railway.app", // your backend
+      "https://chatapp-production-d515.up.railway.app",
     ];
     if (
       !origin ||
