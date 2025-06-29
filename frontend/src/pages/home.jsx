@@ -41,7 +41,7 @@ function Home() {
 
       {/* Header pinned to top */}
       <header className="w-full flex justify-between items-center px-8 py-6">
-        <h1 className="text-2xl font-bold">MyChat 💬</h1>
+        <h1 className="text-2xl font-bold">ChatNet 💬</h1>
         <div className="flex space-x-6 text-lg">
           <button
             onClick={handleChatClick}
