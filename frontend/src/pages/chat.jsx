@@ -1,5 +1,3 @@
-// Improved Chat Component with Enhanced Tailwind CSS Styling
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { io } from 'socket.io-client';
@@ -152,7 +150,7 @@ function Chat({ activeFriend: propActiveFriend }) {
     <div className="h-screen flex flex-col bg-gradient-to-br from-white via-gray-100 to-indigo-50 font-sans">
       {/* Header */}
       <header className="px-6 py-4 bg-white shadow-md flex items-center justify-between border-b">
-        <h1 className="text-2xl font-bold text-indigo-600 tracking-tight">✨ ChatApp</h1>
+        <h1 className="text-2xl font-bold text-indigo-600 tracking-tight">✨ ChatNet</h1>
         <button
           onClick={() => {
             localStorage.removeItem("token");
