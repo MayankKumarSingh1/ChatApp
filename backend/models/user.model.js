@@ -17,7 +17,6 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,
         unique:true, 
-        // it allows only 10 numerical values
         match:[/^\d{10}$/, "Invalid phone number"]
     },
      friends: [{
