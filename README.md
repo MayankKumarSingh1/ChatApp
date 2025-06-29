@@ -16,7 +16,7 @@ Technologies Used:
   EJS: Templating engine for rendering HTML pages.
   HTML/CSS: For structuring and styling the application.
 
-Link : https://chat-1zeijq5qj-mayankkumarsingh1s-projects.vercel.app/
+Link : https://chat-app-iota-mocha.vercel.app/
 
 
 Installation
