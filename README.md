@@ -1,14 +1,14 @@
+## ChatNet
+ChatNet is a real-time chat web that allows users to communicate seamlessly. Built with JavaScript, EJS, HTML, and CSS, this application provides a user-friendly interface and efficient messaging capabilities.
 
-ChatApp is a real-time chat application that allows users to communicate seamlessly. Built with JavaScript, EJS, HTML, and CSS, this application provides a user-friendly interface and efficient messaging capabilities.
-
-Features:
+## Features:
   User Authentication: Secure login and registration for users.
   One-on-One Chat: Add friends and engage in private conversations.
   Emojis Support: Enhance your conversations with a variety of emojis.
   AI Chatbot: Interact with an AI bot for fun and engaging conversations.
   Message History: Users can view past messages in the chat.
   
-Technologies Used:
+## Technologies Used:
   JavaScript: For client-side and server-side scripting.
   Node.js: Backend runtime environment.
   Express.js: Web framework for Node.js.
@@ -24,7 +24,7 @@ Installation
   
   Clone the repository:
   
-  git clone https://github.com/MayankKumarSingh1/ChatApp.git
+  git clone https://github.com/MayankKumarSingh1/ChatNet
   Navigate to the project directory:
   
   cd ChatApp
